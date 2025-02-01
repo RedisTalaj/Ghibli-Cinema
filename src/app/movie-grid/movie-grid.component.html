@@ -1,0 +1,29 @@
+<div class="title-container">
+    <h2>{{title}}</h2>
+    <input 
+        type="text" 
+        placeholder="Search by title" 
+        #searchTerm 
+        (input)="getFilteredMovies(searchTerm.value)"
+    >
+</div>
+
+<ng-container *ngIf="filteredMovies.length !==0 ; else loader">
+    <div class="movie-grid-container">
+        <div class="movie-card" *ngFor="let movie of filteredMovies">
+            <h3>{{movie.title}}</h3>
+            <img 
+                [routerLink]="'/movies/' + movie.id"
+                [src]="movie.image" 
+                alt="img"
+            >
+            <p> <b>Description:</b> {{movie.description}}</p>
+            <p> <b>Director:</b> {{movie.director}}</p>
+            <p> <b>Release Date:</b> {{movie.release_date}}</p>
+            <p> <b>Rotten Tomato Score:</b> {{movie.rt_score}}%</p>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
